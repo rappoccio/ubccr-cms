@@ -1,0 +1,1 @@
+sudo docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v ${PWD}:/home/jovyan/results -v /home/centos/.globus:/home/jovyan/.globus -v /mnt/cms-data:/mnt/cms-data --rm -it --user jovyan --entrypoint /bin/bash  $1
