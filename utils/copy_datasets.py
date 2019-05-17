@@ -20,8 +20,11 @@ def main():
     argv = []
 
     lines = [w.rstrip() for w in open(options.input).readlines()]
+    filemap = dasgoclient_files( lines )
+    for dataset,files in filemap.items():
+        print ('Copying files from dataset ', dataset )
+        xrdcp_files( files )  
 
-    xrdcp_files(lines)
 
 
 
