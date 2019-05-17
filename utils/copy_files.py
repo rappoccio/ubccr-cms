@@ -3,6 +3,17 @@ from optparse import OptionParser
 import sys
 import subprocess
 
+
+def xrdcp_files( infiles, xrdinput='root://cmsxrootd.fnal.gov', localinput='/mnt/cms-data' ):    
+    for ifile,ffile in enumerate(infiles):
+        directory = ''.join( ffile.split('/')[:-1] )
+        print ('making directory', directory)
+        s =  'xrdcp %s/%s %s/%s' % (xrdinput, ffile, localinput, ffile)
+        print (s)
+        #subprocess.call( s, shell=True )
+
+        
+
 def main():
 
     parser = OptionParser()
@@ -17,10 +28,9 @@ def main():
 
     lines = [w.rstrip() for w in open(options.input).readlines()]
 
-    for iline,line in enumerate(lines):
-        s =  'xrdcp root://cmsxrootd.fnal.gov/%s /mnt/cms-data%s' % (line,line)
-        print (s)
-        subprocess.call( s, shell=True )
+    xrdcp_files(lines)
+
+
 
 
 if __name__ == "__main__":
