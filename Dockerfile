@@ -45,6 +45,19 @@ RUN yum -y update && rpm -Uvh http://repos.mesosphere.com/el/7/noarch/RPMS/mesos
     yum clean all && \
     rm -rf /var/cache/yum
 
+RUN wget https://dl.google.com/go/go1.12.5.linux-amd64.tar.gz && \
+    tar -zxvf go1.12.5.linux-amd64.tar.gz && \
+    mv go /usr/local/ && \
+    rm https://dl.google.com/go/go1.12.5.linux-amd64.tar.gz && \    
+    mkdir dasgoclient_build && cd dasgoclient_build && \
+    /usr/local/go/bin/go get github.com/dmwm/cmsauth && \
+    /usr/local/go/bin/go get github.com/dmwm/das2go && \
+    /usr/local/go/bin/go get github.com/vkuznet/x509proxy && \
+    /usr/local/go/bin/go get github.com/buger/jsonparser && \
+    /usr/local/go/bin/go get github.com/pkg/profile &&
+    make build_all && cd ..
+
+
 
 ENV APACHE_SPARK_VERSION 2.4.1
 ENV HADOOP_VERSION 2.7.6
@@ -136,7 +149,7 @@ COPY hadoop-xrootd-1.0.0-SNAPSHOT-jar-with-dependencies.jar /usr/local/hadoop/sh
 ENV LANG en_US.utf8
 ENV JAVA_HOME /usr
 ENV LD_LIBRARY_PATH "/usr/local/hadoop/lib/native:${LD_LIBRARY_PATH}"
-ENV PATH "/usr/local/jupyter/bin:/usr/local/hadoop/bin:/usr/local/spark/bin:${PATH}"
+ENV PATH "/usr/local/jupyter/bin:/usr/local/hadoop/bin:/usr/local/spark/bin:/usr/local/go/bin:${PATH}"
 ENV SPARK_PY4J_ZIPBALL=$SPARK_HOME/python/lib/py4j-0.10.6-src.zip
 CMD [ -f $SPARK_PY4J_ZIPBALL ]
 ENV PYTHONPATH $SPARK_HOME/python:$SPARK_PY4J_ZIPBALL
