@@ -48,6 +48,7 @@ RUN yum -y update && rpm -Uvh http://repos.mesosphere.com/el/7/noarch/RPMS/mesos
 ENV GOPATH /home/${NB_USER}/go
 ENV PATH /usr/local/go/bin/:${PATH}
 
+
 RUN ( \
         wget https://dl.google.com/go/go1.12.5.linux-amd64.tar.gz && \
         tar -zxvf go1.12.5.linux-amd64.tar.gz && \
@@ -105,7 +106,7 @@ RUN ( \
         python3.6 -m pip install --upgrade setuptools pip virtualenv && \
         python3.6 -m virtualenv /usr/local/jupyter && \
         source /usr/local/jupyter/bin/activate && \
-        pip3 install jupyter ipykernel py4j google-common hdfs hdfs3 matplotlib scipy numpy scikit-learn keras tensorflow jupyter metakernel zmq notebook==5.* uproot \ 
+        pip3 install jupyter ipykernel py4j google-common hdfs hdfs3 matplotlib scipy numpy scikit-learn keras tensorflow jupyter metakernel zmq notebook==5.* uproot fnal-column-analysis-tools \ 
     )
 
 #
