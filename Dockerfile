@@ -106,7 +106,7 @@ RUN ( \
         python3.6 -m pip install --upgrade setuptools pip virtualenv && \
         python3.6 -m virtualenv /usr/local/jupyter && \
         source /usr/local/jupyter/bin/activate && \
-        pip3 install jupyter ipykernel py4j google-common hdfs hdfs3 matplotlib scipy numpy scikit-learn keras tensorflow jupyter metakernel zmq notebook==5.* uproot fnal-column-analysis-tools \ 
+        pip3 install jupyter ipykernel py4j google-common hdfs hdfs3 matplotlib scipy numpy scikit-learn keras tensorflow jupyter metakernel zmq lz4 notebook==5.* uproot fnal-column-analysis-tools tornado==5.1.1 \ 
     )
 
 #
