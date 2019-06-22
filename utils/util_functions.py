@@ -5,7 +5,11 @@ import os
 def dasgoclient_files( datasets, instance='prod/phys03'):
     filemaps = {}
     for iline,line in enumerate(datasets):
-        s = 'dasgoclient -query="file dataset=%s instance=%s"' % (line.rstrip(), instance)
+        if instance :
+            strinstance = 'instance=%s' % instance
+        else: 
+            strinstance = ''
+        s = 'dasgoclient -query="file dataset=%s %s"' % (line.rstrip(), strinstance)
         print(s)
         retvals = subprocess.check_output( s, shell=True )
         filemaps[line] = [ x.decode('utf-8') for x in retvals.split(b'\n')]
