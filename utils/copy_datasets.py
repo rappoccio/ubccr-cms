@@ -15,12 +15,16 @@ def main():
                           dest='input',
                           default = '',
                           help='Input file string')
+    parser.add_option('--instance', type='string', action='store',
+                          dest='instance',
+                          default = 'prod/phys03',
+                          help='Instance')
 
     (options, args) = parser.parse_args(sys.argv)
     argv = []
 
     lines = [w.rstrip() for w in open(options.input).readlines()]
-    filemap = dasgoclient_files( lines )
+    filemap = dasgoclient_files( lines, instance=options.instance )
     for dataset,files in filemap.items():
         print ('Copying files from dataset ', dataset )
         xrdcp_files( files )  
