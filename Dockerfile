@@ -108,7 +108,7 @@ RUN ( \
         source /usr/local/jupyter/bin/activate && \
         pip3 install jupyter ipykernel py4j google-common hdfs hdfs3 matplotlib scipy numpy \
 	     scikit-learn keras tensorflow jupyter metakernel zmq \
-	     lz4 notebook==5.* uproot fnal-column-analysis-tools tornado==5.1.1 \
+	     lz4 notebook==5.* uproot coffea tornado==5.1.1 \
 	     pandas innvestigate \
     )
 
