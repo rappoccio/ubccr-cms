@@ -17,7 +17,7 @@ def dasgoclient_files( datasets, instance='prod/phys03'):
         
 
 
-def xrdcp_files( infiles, xrdinput='root://cmsxrootd.fnal.gov', localinput='/mnt/cms-data', test=False ):    
+def xrdcp_files( infiles, xrdinput='root://cmsxrootd.fnal.gov', localinput='/mnt/data/cms', test=False ):    
     for ifile,ffile in enumerate(infiles):
         if ffile is '' or ffile is None:
             continue
