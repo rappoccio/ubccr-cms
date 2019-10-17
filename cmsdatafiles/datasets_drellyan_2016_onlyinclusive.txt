@@ -1,0 +1,1 @@
+/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/chmclean-DYJetsToLLM-50TuneCUETP8M113TeV-madgraphMLM-pythia8RunIISummer16MiniAODv3-PUMoriond17_ext2-v2-dafc15ff64439ee3efd0c8e48ce3e57e/USER
