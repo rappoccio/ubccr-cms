@@ -102,14 +102,16 @@ ENV PIP_NO_CACHE_DIR=off
 
 # Now do the install
 RUN ( \
+        git clone https://github.com/CoffeaTeam/coffea.git && \
         python3.6 /tmp/get-pip.py && \
         python3.6 -m pip install --upgrade setuptools pip virtualenv && \
         python3.6 -m virtualenv /usr/local/jupyter && \
         source /usr/local/jupyter/bin/activate && \
         pip3 install jupyter ipykernel py4j google-common hdfs hdfs3 matplotlib scipy numpy \
-	     scikit-learn keras tensorflow jupyter metakernel zmq \
-	     lz4 notebook==5.* uproot coffea tornado==5.1.1 \
-	     pandas innvestigate \
+	     scikit-learn keras==2.2.4 tensorflow jupyter metakernel zmq \
+	     lz4 notebook==5.* uproot tornado==5.1.1 \
+	     pandas innvestigate && \
+	pip3 install -e coffea \
     )
 
 #
