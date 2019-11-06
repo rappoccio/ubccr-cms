@@ -109,7 +109,7 @@ RUN ( \
         pip3 install jupyter ipykernel py4j google-common hdfs hdfs3 matplotlib scipy numpy \
 	     scikit-learn keras==2.2.4 tensorflow==1.13.2 jupyter metakernel zmq \
 	     lz4 notebook==5.* uproot tornado==5.1.1 coffea \
-	     pandas innvestigate && \
+	     pandas innvestigate \
     )
 
 #
