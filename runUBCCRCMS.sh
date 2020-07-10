@@ -1,1 +1,1 @@
-docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v ${PWD}:${PWD} -w ${PWD} -v /home/centos/.globus:/home/jovyan/.globus -v /mnt:/mnt -p 8888:8888 --rm -it --user jovyan --entrypoint /bin/bash  srappoccio/ubccr-cms:latest
+docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v ${PWD}:${PWD} -w ${PWD} -v /home/centos/.globus:/home/jovyan/.globus -v /mnt:/mnt -p $1:8888 --rm -it --user jovyan --entrypoint /bin/bash $2
