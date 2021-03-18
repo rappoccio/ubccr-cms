@@ -12,7 +12,8 @@ COPY get-pip.py /tmp/get-pip.py
 RUN yum -y update && rpm -Uvh http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-3.noarch.rpm && \
     yum -y install wget selinux-policy bash && \
     wget https://bintray.com/sbt/rpm/rpm > /etc/yum.repos.d/bintray-sbt-rpm.repo && \
-    yum -y install https://centos7.iuscommunity.org/ius-release.rpm && \
+    yum -y install https://repo.ius.io/ius-release-el7.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    #yum -y install https://centos7.iuscommunity.org/ius-release.rpm && \
     yum -y install cvmfs \
                    gcc \
                    glibc-headers \
@@ -50,10 +51,10 @@ ENV PATH /usr/local/go/bin/:${PATH}
 
 
 RUN ( \
-        wget https://dl.google.com/go/go1.12.5.linux-amd64.tar.gz && \
-        tar -zxvf go1.12.5.linux-amd64.tar.gz && \
+        wget https://dl.google.com/go/go1.16.2.linux-amd64.tar.gz && \
+        tar -zxvf go1.16.2.linux-amd64.tar.gz && \
         mv go /usr/local/ && \
-        rm go1.12.5.linux-amd64.tar.gz && \    
+        rm go1.16.2.linux-amd64.tar.gz && \    
         mkdir dasgoclient_build && cd dasgoclient_build && \
 	git clone https://github.com/dmwm/dasgoclient.git && \
 	cd dasgoclient && \
@@ -62,8 +63,8 @@ RUN ( \
         /usr/local/go/bin/go get github.com/vkuznet/x509proxy && \
         /usr/local/go/bin/go get github.com/buger/jsonparser && \
         /usr/local/go/bin/go get github.com/pkg/profile && \
-	/usr/local/go/bin/go get github.com/konsorten/go-windows-terminal-sequences && \
-        make build_all && cp dasgoclient_linux /usr/local/bin/dasgoclient && cd ../.. && rm -rf dasgoclient_build \
+	#/usr/local/go/bin/go get github.com/konsorten/go-windows-terminal-sequences && \
+        make build_all && cp dasgoclient_amd64 /usr/local/bin/dasgoclient && cd ../.. && rm -rf dasgoclient_build \
     )
 
 
@@ -107,9 +108,9 @@ RUN ( \
         python3.6 -m virtualenv /usr/local/jupyter && \
         source /usr/local/jupyter/bin/activate && \
         pip3 install jupyter ipykernel py4j google-common hdfs hdfs3 matplotlib scipy numpy \
-	     scikit-learn keras==2.2.4 tensorflow==1.13.2 jupyter metakernel zmq \
-	     lz4 notebook==5.* uproot tornado==5.1.1 coffea \
-	     pandas innvestigate \
+	     scikit-learn keras==2.2.4 tensorflow jupyter metakernel zmq \
+	     lz4 notebook==5.* uproot tornado==5.1.1  coffea awkward tables neural-structured-learning \
+	     pandas \
     )
 
 #
