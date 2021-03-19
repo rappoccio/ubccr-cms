@@ -69,20 +69,14 @@ RUN ( \
 
 
 
-ENV APACHE_SPARK_VERSION 2.4.1
-ENV HADOOP_VERSION 2.7.6
-ENV SCALA_VERSION -2.12
-
-
 RUN cd /tmp ; set -x && \
-        wget -q http://mirror.accre.vanderbilt.edu/jupyter/hadoop-${HADOOP_VERSION}.tar.gz && \
-        wget -q http://mirror.accre.vanderbilt.edu/jupyter/spark-${APACHE_SPARK_VERSION}-bin-without-hadoop-scala${SCALA_VERSION}.tgz && \
-        tar xzf spark-${APACHE_SPARK_VERSION}-bin-without-hadoop-scala${SCALA_VERSION}.tgz -C /usr/local && \
-        tar xzf hadoop-${HADOOP_VERSION}.tar.gz -C /usr/local && \
-        rm spark-${APACHE_SPARK_VERSION}-bin-without-hadoop-scala${SCALA_VERSION}.tgz && \
-        rm hadoop-${HADOOP_VERSION}.tar.gz && \
-    cd /usr/local && ln -s spark-${APACHE_SPARK_VERSION}-bin-without-hadoop-scala${SCALA_VERSION} spark && \
-                     ln -s hadoop-${HADOOP_VERSION} hadoop && \
+        wget -q https://mirrors.gigenet.com/apache/spark/spark-3.1.1/spark-3.1.1-bin-hadoop3.2.tgz && \
+	wget -q https://mirror.jframeworks.com/apache/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz && \
+	tar -zxvf spark-3.1.1-bin-hadoop3.2.tgz -C /usr/local && \
+	tar -zxvf hadoop-3.2.2.tar.gz -C /usr/local && \
+        rm hadoop-3.2.2.tar.gz spark-3.1.1-bin-hadoop3.2.tgz  && \
+    cd /usr/local && ln -s spark-3.1.1-bin-hadoop3.2 spark && \
+                     ln -s hadoop-3.2.2 hadoop && \
     mkdir -p /hdfs \
              /mnt/hadoop \
              /hadoop \
@@ -108,8 +102,8 @@ RUN ( \
         python3.6 -m virtualenv /usr/local/jupyter && \
         source /usr/local/jupyter/bin/activate && \
         pip3 install jupyter ipykernel py4j google-common hdfs hdfs3 matplotlib scipy numpy \
-	     scikit-learn keras==2.2.4 tensorflow jupyter metakernel zmq \
-	     lz4 notebook==5.* uproot tornado==5.1.1  coffea awkward tables neural-structured-learning \
+	     scikit-learn keras tensorflow jupyter metakernel zmq \
+	     lz4 notebook uproot coffea awkward tables neural-structured-learning \
 	     pandas \
     )
 
@@ -140,7 +134,7 @@ RUN ( \
 ENV SPARK_HOME /usr/local/spark
 ENV HADOOP_HOME /usr/local/hadoop
 ENV HADOOP_CONF_DIR /usr/local/spark/conf
-ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.6-src.zip
+ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9-src.zip
 ENV MESOS_NATIVE_LIBRARY /usr/local/lib/libmesos.so
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
 
@@ -164,7 +158,7 @@ ENV LANG en_US.utf8
 ENV JAVA_HOME /usr
 ENV LD_LIBRARY_PATH "/usr/local/hadoop/lib/native:${LD_LIBRARY_PATH}"
 ENV PATH "/usr/local/jupyter/bin:/usr/local/hadoop/bin:/usr/local/spark/bin:${PATH}"
-ENV SPARK_PY4J_ZIPBALL=$SPARK_HOME/python/lib/py4j-0.10.6-src.zip
+ENV SPARK_PY4J_ZIPBALL=$SPARK_HOME/python/lib/py4j-0.10.9-src.zip
 CMD [ -f $SPARK_PY4J_ZIPBALL ]
 ENV PYTHONPATH $SPARK_HOME/python:$SPARK_PY4J_ZIPBALL
 EXPOSE 8888
