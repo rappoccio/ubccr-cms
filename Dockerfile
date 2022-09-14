@@ -1,7 +1,7 @@
 FROM opensciencegrid/osg-wn:latest
 
 USER root
-ENV NB_UID 1001
+ENV NB_UID 1000
 ENV NB_USER jovyan
 RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
 WORKDIR /home/$NB_USER/
